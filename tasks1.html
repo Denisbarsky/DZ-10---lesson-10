@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 10</h1>
+    <p></p>
+    <script>
+      //Дано історію цін на цінні папери за деякий період (згенерувати від 1 до 10000)
+      function getRandomNum(minValue, maxValue) {
+        return minValue + Math.floor(Math.random() * (maxValue - minValue + 1));
+      }
+
+      const testArray = new Array(10)
+        .fill()
+        .map((el) => getRandomNum(1, 10000));
+
+      //)Сформувати новий масив, у якому є тільки ті, що більші за 1000 грн.
+      const filteredHandredArr = testArray.filter((el) => el > 1000);
+      document.write(filteredHandredArr);
+
+      //Сформувати новий масив, у якому є номери тільки тих, що більші за 1000 грн.
+      const filteredIndexesArray = testArray
+        .map((el, index) => (el > 1000 ? index : -1))
+        .filter((index) => index !== -1);
+      document.write(filteredIndexesArray);
+
+      //Сформувати список з тих цін, які більші за попереднє значення
+      const biggerThanPreviousArray = testArray.reduce((acc, curr, index) => {
+        if (index > 0 && curr > testArray[index - 1]) {
+          acc.push(curr);
+        }
+        return acc;
+      }, []);
+
+      document.write(biggerThanPreviousArray);
+
+      //Сформувати новий масив, що міститиме значення цін у відсотках стосовно максимального
+      const maxPrice = Math.max(...testArray);
+
+      const percentageArray = testArray.map(
+        (price) => (price / maxPrice) * 100
+      );
+
+      //Підрахувати кількість змін цін
+      let changesCount = 0;
+
+      for (let i = 1; i < testArray.length; i++) {
+        if (testArray[i] > testArray[i - 1]) {
+          changesCount++;
+        } else if (testArray[i] < testArray[i - 1]) {
+          changesCount++;
+        }
+      }
+
+      document.write(`Кількість змін цін: ${changesCount}`);
+
+      //Визначити, чи є ціна, що менше 1000
+      const hasPriceLessThanThousand = testArray.some((el) => el < 1000);
+      if (hasPriceLessThanThousand) {
+        document.write("Є ціна менше 1000");
+      } else {
+        document.write("Немає цін менше 1000");
+      }
+
+      //Визначати, чи усі ціни більше за 1000
+      const areAllPricesGreaterThanThousand = testArray.every(
+        (el) => el > 1000
+      );
+      if (areAllPricesGreaterThanThousand) {
+        document.write("Усі ціни більше за 1000");
+      } else {
+        document.write("Є ціна менше або дорівнює 1000");
+      }
+
+      //Підрахувати кількість цін, що більше за 1000
+      const filteredHandredArray = testArray.filter((el) => el > 1000);
+      const countPricesGreaterThanThousand = filteredHandredArray.length;
+      document.write(
+        "Кількість цін більше за 1000: " + countPricesGreaterThanThousand
+      );
+
+      //Підрахувати суму цін, що більше за 1000
+      const sumPricesGreaterThanThousand = testArray.reduce((acc, el) => {
+        if (el > 1000) {
+          return acc + el;
+        }
+        return acc;
+      }, 0);
+
+      document.write(
+        "Сума цін більше за 1000: " + sumPricesGreaterThanThousand
+      );
+
+      //Знайти першу ціну, що більше за 1000
+      const firstOverThousand = testArray.find((el) => el > 1000);
+      document.write(firstOverThousand);
+
+      //Знайти індекс першої ціни, що більше за 1000
+      const firstOverThousandIndex = testArray.findIndex((el) => el > 1000);
+      document.write(firstOverThousandIndex);
+
+      //Знайти останню ціну, що більше за 1000
+      const lastOverThousand = testArray.reverse().find((el) => el > 1000);
+      document.write(lastOverThousand);
+
+      //Знайти індекс останньої ціни, що більше за 1000
+      const lastOverThousandIndex = testArray
+        .reverse()
+        .findIndex((el) => el > 1000);
+      document.write(lastOverThousandIndex);
+    </script>
+  </body>
+</html>
